@@ -1,7 +1,7 @@
 
-# Настройка формат даты в Laravel. Конспект
+# Настройка формата даты в Laravel. Конспект
 
-Проблема: в разных местах сайта разные форматы дат.
+В разных местах сайта может быть разный формат дат:
 
 - Поля Базы данных должны быть в формате YYYY-MM-DD.
 - В шаблонах должен быть человекопонятный формат.
@@ -29,7 +29,6 @@ public function setTransactionDateAttribute($value)
         ->format('Y-m-d');
 }
 
-// Отображение даты в формах/шаблонах
 public function getTransactionDateAttribute($value)
 {
     return Carbon::parse($value)->format('m/d/Y');
