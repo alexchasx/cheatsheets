@@ -1,5 +1,5 @@
 
-# Конспект по созданию события или наблюдателя в Laravel
+# Конспект по созданию событий в Laravel
 
 1) Создать класс-событие и класс-обработчик через консоль:
 ```bash
@@ -45,10 +45,12 @@ php artisan make:listener ClearSidebarCache [--event] [--queued]
 class ClearSidebarCache implements ShouldQueue
 {
 ```
+<br>
+
 
 ## Наблюдатели (Observers)
 
-1) Создать наблюдатель за моделью Rubric:
+1) Создать наблюдатель, привязанный к модели Rubric:
 ```bash
 # По умолчанию в `app/Observers`
 php artisan make:observer RubricObserver --model=Rubric
