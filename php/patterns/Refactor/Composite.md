@@ -1,21 +1,77 @@
-/*
-Composite (Компоновщик).
-Это способ объединения и управления группами объектов, обращаясь с ними как с отдельными объектами.
+# Шаблон проектирования Composite (Компоновщик) на php.
+Структурный шаблон проектирования.
 
-Компоновщик позволяет обращаться к группе объектов также как и к отдельному объекту.
-Реализуется единым интерфейсом для составных и несоставных объектов.
+Назначение:
+- Позволяет обращаться к отдельным объектам и к группам объектов одинаково.
 
-Объединяет объекты в древовидную структуру для представления
-иерархии от частного к целому.
+Реализация:
+1) Составные объекты включают в себя объекты общего типа с текущим объектом.
+2) Составные объекты имеют методы для добавления, удаления и манипуляций с объектами.
 
-Основным назначением паттерна, является обеспе-
-чение единого интерфейса как к составному так и конечному объекту, что бы клиент не заду-
-мывался над тем, с каким объектом он работает. Общеизвестными примерами этого паттерна
-является SimpleXML и jQuery.
-*/
+```php
+interface IComponent 
+{
+    public function display();
+}
 
-<?php
+class Composite implements IComponent
+{        
+    public function __construct(
+        public string $name,
+        protected array $children = [],
+    ) {}
 
+    public function add(IComponent $item)
+    {
+        $this->children[$item->name] = $item;
+    }
+
+    public function remove(IComponent $item)
+    {
+        unset($this->children[$item->name]);
+    }
+
+    public function display()
+    {
+        $this->displaySelf();
+        foreach ($this->children as $child) {
+            $child->display();
+        }
+    }
+}
+
+class Leaf implements IComponent
+{        
+    public function __construct(
+        public string $name
+    ) {}
+
+    public function display()
+    {
+        print $this->name.'<br>'.PHP_EOL;
+    }
+}
+
+$root = new Composite("root");
+
+$root->add(new Leaf("Leaf A"));
+$root->add(new Leaf("Leaf B"));
+
+$comp = new Composite("Composite X");
+$comp->add(new Leaf("Leaf XA"));
+$comp->add(new Leaf("Leaf XB"));
+
+$root->add($comp);
+$root->add(new Leaf("Leaf C"));
+
+$leaf = new Leaf("Leaf D");
+$root->add($leaf);
+$root->remove($leaf);
+
+$root->display();
+
+
+// ===============================
 abstract class Unit
 {
     /**
@@ -42,21 +98,17 @@ abstract class Unit
 }
 
 class UnitException extends Exception
-{
-
-}
+{ }
 
 /**
  * Несостаные объекты
  */
 class Archer extends Unit
 {
-
     public function power()
     {
         return 4;
     }
-
 }
 
 /**
@@ -122,3 +174,5 @@ $sub_army->addUnit( new Archer() );
 $main_army->addUnit($sub_army);
 // Все вычисления выполняются за кулисами
 print "Атакующая сила : { $main_army->power() } \n";
+
+```
