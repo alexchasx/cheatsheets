@@ -1,0 +1,23 @@
+
+1) Настроить php.ini.
+Пример:
+zend_extension = "D:\openserver\modules\php\PHP_8.0\ext\php_xdebug.dll"
+
+xdebug.mode = debug
+xdebug.start_with_request = yes
+
+2) Проверить xdebug в phpinfo();
+
+3) VSCode -> параметры -> в строке поиска: "debug" -> debug.allowBreakpointsEverywhere = true
+
+4) VSCode -> Запуск отладки -> добавить конфигурацию:
+        {
+            "name": "Listen for Xdebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9003
+        },
+
+5) Проверка работы дебага:
+- раставить брэкпоинты,
+- запустить файл в браузере или в консоле
