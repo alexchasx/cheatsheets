@@ -1,5 +1,5 @@
 
-# Оптимизация запросов к БД в Laravel (конпсект).
+# Конспект по оптимизация запросов к БД в Laravel.
 
 
 ## 1) Сокращайте использование памяти, разбивая набор записей на части.
@@ -12,9 +12,10 @@ $posts = Post::chunk(100, function($posts) {
 });
 ```
 
-
 ## 2) Не используйте "select *" (выбор всех полей).
+
 Лучше так:
+
 ```php
 // только поля 'id' и 'name'
 $posts = Post::where('name','=', 'vasia')
@@ -29,7 +30,6 @@ $posts = Post::where('name','=', 'vasia')
 ```php
 // select count(*) from posts
 $posts = Post::count();     
-
 // или
 $posts = DB::table('posts')->count();
 ```
@@ -39,7 +39,6 @@ $posts = DB::table('posts')->count();
 ```php
 // ( select * from posts )->count()
 $posts = Post::all()->count();  
-
 // или
 $posts = DB::table('posts')->get()->count();
 ```

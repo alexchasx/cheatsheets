@@ -82,6 +82,3 @@ RabbitMQ, Kafka, ...
 - Патерны проектирования (GRASP, SOLID, DDD, LoD, GoF)
 - Антипатерны
 - Алгоритмы
-- Принцип информационный эксперт / Information Expert
-- Зацепление и связность / coupling and cohesion
-- Чистая выдумка / Pure Fabrication

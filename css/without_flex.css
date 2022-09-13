@@ -1,79 +1,78 @@
-<style>
 	/*Горизонтальная навигация:*/
 /*----------В центре--------*/
-/*		.nav {   родитель
-			text-align: center;
-			border: 1px solid #000;
-		}
-		.nav_item {                Из-за переносов <a> между блоками есть отступы
-			display: inline-block;
-			width: 100px;
-			height: 50px;
-			line-height: 50px;
-			border: 1px solid #000;
-		}*/
+.nav {  /* родитель */
+    text-align: center;
+    border: 1px solid #000;
+}
+.nav_item {               /* Из-за переносов <a> между блоками есть отступы */
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    border: 1px solid #000;
+}
 
 /*---------Распределить блоки равномерно по горизонтали (крайние прижаты к краям)------*/
-/*		.nav {
-			text-align: justify;
-			border: 1px solid #000;
-		}
-		.nav:after {    		   Переполняет строку, чтобы блоки не сбивались в кучу
-				content:'';
-				display: inline-block;
-				width: 100%;
-			}
-		.nav_item {
-			display: inline-block;
-			height: 50px;
-			padding-left: 10px;
-			padding-right: 10px;
-			line-height: 50px;
-			border: 1px solid #000;
-		}*/
+.nav {
+    text-align: justify;
+    border: 1px solid #000;
+}
+.nav:after {    		  /* Переполняет строку, чтобы блоки не сбивались в кучу */
+        content:'';
+        display: inline-block;
+        width: 100%;
+    }
+.nav_item {
+    display: inline-block;
+    height: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 50px;
+    border: 1px solid #000;
+}
 
 /*------------Выравнивание по высоте без жёских размеров и координат------------*/
-/*		.parent {
-			height: 100vh;
-		}
-		.parent:before {
-			content: '';
-			display: inline-block;
-			width: 0;
-			height: 100%;
-			vertical-align: middle;   Выранивание относительно соседних inline/inline-block элементов
-		}
-		.child {
-			display: inline-block;
-			vertical-align: middle;
-		}*/
+.parent {
+    height: 100vh;
+}
+.parent:before {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 100%;
+    vertical-align: middle;   /* Выранивание относительно соседних inline/inline-block элементов */
+}
+.child {
+    display: inline-block;
+    vertical-align: middle;
+}
 
 /*-----------Выравнивание по высоте без жёских размеров и координат (ВАРИАНТ 2)-------------------*/
-/*		.parent-table {
-			display: table;
-			width: 100%;
-		}
-		.parent {   внтури "parent-table"
-			display: table-cell;
-			vertical-align: middle;
-			width: 100%;
-		}
-		.child {    внутри parent
-			display: inline-block;
-		}*/
+.parent-table {
+    display: table;
+    width: 100%;
+}
+.parent {   /* внтури "parent-table" */
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+}
+.child {    /* внутри parent */
+    display: inline-block;
+}
 
 /*---------Выравнивание по высоте без жёских размеров и координат (ВАРИАНТ 3) (Не поддерж. IE8 и ниже)----------*/
-/*		.parent {
-			height: 100vh;
-			position: relative;
-		}
-		.child {
-			position: absolute;
-			top: 50%;
-			transform: translateY(-50%);
-		}*/
-</style>
+.parent {
+    height: 100vh;
+    position: relative;
+}
+.child {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
 
+/* 
       <!-- Сетки (inline-block)(блоки разной величины) -->
 <!-- <!DOCTYPE html>
 <html lang="en">
@@ -126,4 +125,5 @@
 	</div>
 </body>
 </html>
- -->
+
+*/
