@@ -1,0 +1,7 @@
+apt-get --purge remove mysql-server
+apt-get --purge remove mysql-client
+apt-get --purge remove mysql-common
+apt-get autoremove
+apt-get autoclean
+rm -rf /etc/mysql
+apt-get install mysql-server mysql-client phpmyadmin

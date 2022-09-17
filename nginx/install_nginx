@@ -7,15 +7,22 @@ yum install nginx
 
 
 # ------------- На Debian. Подключаем репозиторий nginx
-echo "deb http://nginx.org/packages/debian `lsb_release -cs` nginx" | tee /etc/apt/sources.list.d/nginx.list
+sudo apt-add-repository ppa:nginx/stable
 
+sudo apt update
+sudo apt upgrade
+
+sudo apt-get install nginx
+
+# или
+echo "deb http://nginx.org/packages/debian `lsb_release -cs` nginx" | tee /etc/apt/sources.list.d/nginx.list
 # Импортируем ключ для проверки подлинности пакетов:
 curl -fsSL https://nginx.org/keys/nginx_signing.key | sudo apt-key add -
-
 apt update && apt install nginx
 
 
-# ------------- На Ubuntu. Подключаем репозиторий:
+# UBUNTU 
+#Подключаем репозиторий:
 echo "deb http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" | tee /etc/apt/sources.list.d/nginx.list
 
 # Импортируем ключ:
@@ -24,13 +31,22 @@ curl -fsSL https://nginx.org/keys/nginx_signing.key | sudo apt-key add -
 apt update && apt install nginx
 
 
-# ------------- На всех указанных системах запуск веб сервера выполняется командой:
-systemctl start nginx
+# ========================================
+
 
 # Добавляем nginx в автозагрузку:
-systemctl enable nginx
+sudo systemctl enable nginx
 
-# ------------- Nginx в Docker. Установить и запустить nginx в docker:
+# Настроить 
+/etc/nginx/nginx.conf - главный файл конфигурации
+/etc/nginx/sites-available/* - файлы конфигурации для виртуальных хостов, проще говоря для каждого сайта.
+/etc/nginx/sites-enabled/* - файлы конфигурации активированных сайтов.
+
+sudo nano /etc/nginx/nginx.conf
+
+
+
+# Nginx в Docker. Установить и запустить nginx в docker:
 docker run --name nginx01 -p 80:80 -d nginx
 "В данной команде:
     nginx01     - имя созданного контейнера, основанного на базовом образе nginx
@@ -38,4 +54,3 @@ docker run --name nginx01 -p 80:80 -d nginx
     -d          - запуск контейнера в режиме службы
 Образ nginx в данном случае будет скачан автоматически при создании первого контейнера
 "
-
