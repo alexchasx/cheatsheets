@@ -3,8 +3,8 @@
 https://veesp.com/ru/blog/how-to-setup-lnmp-on-ubuntu/
 
 
-Все настройки хостов содерж-ся в папке /etc/nginx/sites-available/
-По умолч. уже есть один виртуальный хост с конфигом /etc/nginx/sites-available/default
+Все настройки хостов содержатся в папке `/etc/nginx/sites-available/`.
+По умолчанию уже есть один виртуальный хост с конфигом `/etc/nginx/sites-available/default`.
 
 
 ```bash
@@ -21,13 +21,14 @@ sudo nano /etc/nginx/sites-available/mysite.local
 mkdir /home/ch/develop/sites/mysite.local
 
 ```
-Рекоменд. для каждого домена делать отдельно:
+Рекомендуется для каждого домена делать отдельно:
 - директорию с исходниками сайта;
 - директорию с логами;
-- в некоторых ситуациях отдельный php-fpm пул для каждого сайта или группы сайтов.
+- в некоторых ситуациях отдельный `php-fpm`-пул для каждого сайта или группы сайтов.
 
-Файл /etc/nginx/nginx.conf/sites-available/mysite.local:
+Пример файла `/etc/nginx/nginx.conf/sites-available/mysite.local`:
 
+```nginx
 server {
 	listen 127.0.01:80;
     
@@ -44,8 +45,9 @@ server {
 		index  index.html index.htm index.php;
 	}
 }
+```
 
-
+Перезапускаем nginx
 ```bash
 sudo service nginx reload
 # если ошибка "Reloading nginx configuration nginx [fail]"
@@ -56,25 +58,24 @@ sudo service nginx start
 
 ```
 
-# Настроить права на папку /var/www/
+### Настроить права на папку `/var/www/`
 ```bash
-# Для начала создай группу:
+# Для начала создадим группу:
 sudo groupadd groupname
 
-# Затем добавь себя в эту группу:
+# Затем добавим себя в эту группу:
 sudo gpasswd -a username groupname
 
-# После чего дай созданной группе права на запись в каталог:
+# После чего дадим созданной группе права на запись в каталог:
 sudo chown -R root:groupname /var/www
 sudo chmod 775 /var/www
-
-# username и groupname заменить на своё. Может понадобиться перелогиниться.
+# username и groupname заменим на своё. Может понадобиться перелогиниться.
 
 ```
 
-# Проверка работы
+### Проверка работы
 
-Если вы использовали несуществующий домен, то пишем в /etc/hosts
+Если используем несуществующий домен, то пишем в `/etc/hosts`
 
 ```bash
 <ip_адрес_сервера> example.com
