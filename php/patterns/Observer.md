@@ -1,57 +1,63 @@
 
-# Наблюдатель (Observer)
-Определяет отношение «один-ко-многим» между объектами. Когда состояние одного объекта изменяется, все зависимые объекты получают оповещения.
+# Шаблон проектирования Наблюдатель (Observer) в PHP (конспект)
+
+Тип: Поведенческий
+
+Определяет отношение «один-ко-многим» между объектами. Когда состояние одного объекта изменяется, все зависимые объекты получают оповещения об этом.
 
 Рализация:
 - Субъект (Издатель) содержит список оповещаемых, методы добавления, удаления и оповещения наблюдателей.
-- Наблюдатели имеет метод для обновления информации.
+- Наблюдатели имеет метод для обновления информации об субъекте.
 
 ```php
-class Newspaper implements \SplSubject{
-    private $name;
-    private $observers = array();
-    private $content;
+class Newspaper implements \SplSubject
+{
+    private array $observers = [];
+    private string $content;
    
-    public function __construct($name) {
-        $this->name = $name;
-    }
+    public function __construct(private string $name)
+    {}
 
-    public function attach(\SplObserver $observer) {
+    public function attach(\SplObserver $observer): void
+    {
         $this->observers[] = $observer;
     }
    
-    public function detach(\SplObserver $observer) {
-       
-        $key = array_search($observer,$this->observers, true);
-        if(false !== $key){
+    public function detach(\SplObserver $observer) 
+    {       
+        $key = array_search($observer, $this->observers, true);
+        if(false !== $key) {
             unset($this->observers[$key]);
         }
     }
-   
-    public function breakOutNews($content) {
-        $this->content = $content;
-        $this->notify();
-    }
-   
-    public function getContent() {
-        return $this->content." ({$this->name})";
-    }
-   
-    public function notify() {
+
+    public function notify(): void
+    {
         foreach ($this->observers as $value) {
             $value->update($this);
         }
     }
-}
-
-class Reader implements SplObserver{
-    private $name;
    
-    public function __construct($name) {
-        $this->name = $name;
+    public function breakOutNews(string $content): void
+    {
+        $this->content = $content;
+        $this->notify();
     }
    
-    public function update(\SplSubject $subject) {
+    public function getContent(): string
+    {
+        return $this->content . " ({$this->name})";
+    }
+   
+}
+
+class Reader implements SplObserver
+{   
+    public function __construct(private string $name) 
+    {}
+   
+    public function update(\SplSubject $subject): void
+    {
         echo $this->name.' is reading breakout news <b>'.$subject->getContent().'</b><br>';
     }
 }

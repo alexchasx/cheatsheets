@@ -27,14 +27,13 @@
 ```php
 class Singleton
 {
-    private array $props = [];
-    private static Singleton $instance;     // Обязательно!
+    private static Singleton $instance;
 
-    private function __construct() {}       // Обязательно!
+    private function __construct() {}
     private function __clone() {}
     private function __wakeup() {}
 
-    public static function getInstance(): Singleton // Обязательно!
+    public static function getInstance(): Singleton
     {
         if (empty(self::$instance)) {
             self::$instance = new self();
@@ -42,17 +41,7 @@ class Singleton
         return self::$instance;
     }
 
-	public function setProperty($key, $value) {
-		$this->props[$key] = $value;
-	}
-
-	public function getProperty($key) {
-		return $this->props[$key];
-	}
 }
 
-// Использование
 $single = Singleton::getInstance();
-$single->setProperty('variable', 12);
-echo 'From "single" = ' . $single->getProperty('variable');
 ```
