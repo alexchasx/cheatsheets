@@ -1,3 +1,77 @@
+docker info     # инф. о докере и его объектах
+docker images   # инф. об образах
+docker ps       # инф. о запущен. контейнеров
+docker ps -a    # инф. о всех. контейнерах
+
+docker login    # авторизация на Docker.HUB
+docker logout   # 
+
+# -d  - в фоновом режиме
+# -p  - сопоставление между портом 3000 хоста и портом 3000 контейнера
+docker run -dp 3000:3000 getting-started
+
+docker pull nginx   # скачать образ nginx последней версии
+docker run nginx    # создание и запуск кон-ра из образа nginx
+docker run --name mynginx nginx    # запуск нового кон-ра из образа nginx
+
+docker start mynginx            # запуск кон-ра mynginx
+docker stop <CONTAINER ID>      # остановить кон-р
+docker pause <CONTAINER ID>     #
+docker restart <CONTAINER ID>   # 
+docker kill <CONTAINER ID>      # 
+
+# построение образа из файла DockerFile из тек. дирек.
+docker build -t myimage .       # -t (title) задать имя образа
+
+# удалить образ
+docker image <ID>
+
+# запушить образ
+docker push <login>/<NAME>
+
+# удалить образ
+docker image rm <login>/<NAME>
+
+# запуск конкр-го кон-ра
+docker run --name <NAME> -it ubuntu bash
+docker run -it --name myapp --hostname myapp ubuntu bash
+
+# список всех контейнеров (-a  - и установленные)
+docker ps -a
+
+# перезапустить конт-р
+docker start <NAME>
+
+# остановить конт-р
+docker stop <NAME>
+
+# иниц. нов. конт-р (-h  - задать имя хоста)
+docker run -h ch -it ubuntu bash
+
+# подробн. инф-я о конт-ре
+docker inspect <NAME>
+docker inspect <NAME> | grep IPAddress
+
+# список файлов, измен-ых в конт-ре
+docker diff <NAME>
+
+# список событий внутри конт-ра
+docker logs
+
+# удалить конт-р
+docker rm <NAME>
+
+# показать иден-ры всех остановленных конт-ров
+docker ps -aq -f status=exited 
+
+# удалить все остановленные конт-ры
+docker rm -v $(sudo docker ps -aq -f status=exited)
+
+# запуск скачанного конт-ра в фоновом режиме
+docker run -d <NAME>
+docker run -d -p 8000:8000 <NAME>  # <порт на ПК>:<порт внутри конт-ра>
+
+
 Использование: docker [ПАРАМЕТРЫ] КОМАНДА
 
 Самодостаточная среда выполнения для контейнеров
