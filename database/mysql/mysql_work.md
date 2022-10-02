@@ -14,6 +14,12 @@ sudo systemctl restart mysql
 sudo systemctl stop mysql
 sudo systemctl start mysql
 
+# или
+sudo /etc/init.d/mysql status
+sudo /etc/init.d/mysql restart
+sudo /etc/init.d/mysql stop
+sudo /etc/init.d/mysql start
+
 # подключиться
 mysql -u root
 
@@ -41,9 +47,10 @@ name > 'Иван' AND
 works_since '1998-04-26';
 ```
 
-
+# Войти в Mysql под Docker 
+laravel-orchid-blog-mysql-1  - имя образа с MYSQL
 ```bash
-
+docker exec -it laravel-orchid-blog-mysql-1 mysql -uroot -p
 ```
 
 
