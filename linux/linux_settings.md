@@ -1,3 +1,4 @@
+Вбиваем в терминал (исключая комментарии):
 ```bash
 # обновление пакетов
 sudo apt update && sudo apt upgrade
@@ -10,26 +11,23 @@ sudo apt install mc
 # редактирование файла .bashrc
 mcedit ~.bashrc
 ```
-- Добавим в конец файла (двойная строка и подсветка ветки git):
 
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;33m\]$(__git_ps1)\n\[\033[00m\]\[\033[0;31m\]\$\[\033[0;33m\] '
+Добавим в конец файла следующий код:
+```
+# двойная строка и подсветка ветки git
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]
+\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;33m\]$(
+    __git_ps1)\n\[\033[00m\]\[\033[0;31m\]\$\[\033[0;33m\] '
+```
 
-- или (со стрелкой на второй строке)
-
-PS1='\[\033[0;32m\]\[\033[0m\033[0;32m\]\u\[\033[0;36m\] @ \[\033[0;36m\]\h \w\[\033[0;32m\]$(__git_ps1)\n\[\033[0;32m\]└─\[\033[0m\033[0;32m\] \$\[\033[0m\033[0;32m\] ▶\[\033[0m\] '
-
-- или (с знаком "└─" на второй строке)
-
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;33m\]$(parse_git_branch)\n\[\033[00m\]└─\[\033[0m\033[0;32m\] \$\[\033[0m\] '
-
+Вбиваем в терминал (исключая комментарии):
 ```bash
 # запуск новой конфигурации
 source ./.bashrc
 
-# ------- 
+# ------- Установка git и php
 
 sudo apt install git
-sudo apt install composer
 
 # смотреть установленные модули для php
 dpkg -l | grep php | tee packages.txt 
@@ -44,7 +42,29 @@ sudo apt install php8.1-common php8.1-mysql php8.1-xml
 # проверить версию
 php -v
 
-# установка Node.js (версию меняем на нужную) и npm
+# ------- Установка composer 2
+
+sudo apt install php-cli unzip
+cd ~
+curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
+sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+# проверка
+php /usr/local/bin/composer
+
+# добавим alias "composer"
+cd ~
+mcedit .bashrc
+# добваить в конец файла:
+alias composer='php /usr/local/bin/composer'
+
+# запуск новой конфигурации
+source ./.bashrc
+
+# проверка
+composer -v
+
+# ------- Установка Node.js (версию меняем на нужную) и npm
+
 curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
@@ -69,12 +89,11 @@ docker run hello-world
 sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
 
-# -------
-
-# подключить диск из под винды (если нужно)
+# ------- Подключить диск из под винды (если нужно)
 mkdir windows10
 fdisk -l         # найти диск под виндой
 sudo mount /dev/sda5 /home/chas/windows10
+
 
 # Скачать яндекс-браузер через браузер и установить через приложение
 # Скачать VSCode через браузер и установить через приложение

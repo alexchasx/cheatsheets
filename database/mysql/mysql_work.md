@@ -20,6 +20,7 @@ sudo /etc/init.d/mysql restart
 sudo /etc/init.d/mysql stop
 sudo /etc/init.d/mysql start
 
+
 # подключиться
 mysql -u root
 
@@ -53,4 +54,19 @@ laravel-orchid-blog-mysql-1  - имя образа с MYSQL
 docker exec -it laravel-orchid-blog-mysql-1 mysql -uroot -p
 ```
 
+## Изменение метода аутентификации MySQL пользователя root
 
+```bash
+# Запустим службу mysql и войдём
+sudo service mysql start
+# по умолчанию пользователь root не имеет пароля
+sudo mysql -uroot -p
+
+# Проверим метод аутентификации, который используется для пользователя root
+SELECT user, authentication_string, plugin, host FROM mysql.user WHERE user="root";
+
+# Если использ-ся auth_socket, то изменить на использование пустого пароля:
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '';
+
+# применит внесённые изменения:
+FLUSH PRIVILEGES;
