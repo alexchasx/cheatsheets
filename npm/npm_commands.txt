@@ -1,4 +1,4 @@
-﻿Ссылка на ГИТХАБ с описанием:
+Ссылка на ГИТХАБ с описанием:
 https://github.com/sindresorhus/awesome-npm#tips
 
 Команды из оф. док-ии:
