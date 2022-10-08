@@ -1,4 +1,4 @@
- https://sql-language.ru/update.html
+https://sql-language.ru/update.html
 
 
 Исправление ошибок в консоли:

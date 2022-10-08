@@ -8,14 +8,26 @@ https://jeka.by/post/1003/rabotaem-s-mysql-cherez-komandnuyu-stroku/
 
 
 ```bash
+
+sudo systemctl stop mysql
+# или
+sudo systemctl stop mysql.service
+
+sudo systemctl start mysql
+# или
+sudo systemctl start mysql.service
+
 #
 sudo systemctl status mysql
 sudo systemctl restart mysql
-sudo systemctl stop mysql
-sudo systemctl start mysql
+
+# запустить в WSL
+sudo /etc/init.d/mysql start
 
 # подключиться
 mysql -u root
+
+
 
 ```
 
@@ -42,8 +54,11 @@ works_since '1998-04-26';
 ```
 
 
+Решение проблемы "su: предупреждение: не могу поменять каталог на /nonexistent: Нет такого файла или каталога":
 ```bash
-
+sudo service mysql stop
+sudo usermod -d /var/lib/mysql/ mysql
+sudo service mysql start
 ```
 
 

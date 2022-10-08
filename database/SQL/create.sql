@@ -1,19 +1,19 @@
 CREATE TABLE country (
-  id BIGSERIAL NOT NULL PRIMARY KEY,
-  name VARCHAR(128) NOT NULL
+  id    BIGSERIAL    NOT NULL  PRIMARY KEY,
+  named VARCHAR(128) NOT NULL
 );
 
 CREATE TABLE region (
-  id BIGSERIAL NOT NULL PRIMARY KEY,
-  country_id BIGINT NOT NULL,
-  name VARCHAR(128) NOT NULL,
-  FOREING KEY (country_id) REFERENCES country (id)
+  id          BIGSERIAL    NOT NULL  PRIMARY KEY,
+  country_id  BIGINT       NOT NULL,
+  named       VARCHAR(128) NOT NULL,
+  FOREING     KEY (country_id)  REFERENCES country (id)
 );
 
 CREATE TABLE city (
-  id BIGSERIAL NOT NULL PRIMARY KEY,
-  region_id BIGINT NOT NULL,
-  name VARCHAR(128) NOT NULL,
-  FOREING KEY (region_id) REFERENCES region (id)
+  id        BIGSERIAL    NOT NULL  PRIMARY KEY,
+  region_id BIGINT       NOT NULL,
+  named     VARCHAR(128) NOT NULL,
+  FOREING   KEY (region_id)  REFERENCES region (id)
 );
 
