@@ -170,9 +170,12 @@ nano .bashrc
 
 ```
 # двойная строка и подсветка ветки git
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]
-\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;33m\]$(
-    __git_ps1)\n\[\033[00m\]\[\033[0;31m\]\$\[\033[0;33m\] '
+git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\
+\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;33m\
+$(git_branch)\n\[\033[00m\]\[\033[0;31m\]\$\[\033[0;33m\] '
 
 
 #======== my aliases
@@ -211,5 +214,5 @@ alias psnginx='echo "command: ps -ax | grep nginx"; ps -ax | grep nginx'
 ```
 Сохраняем, выходим из редактора и сохраняем настройки командой
 ```
-source ./.bashrc
+source ~/.bashrc
 ```
