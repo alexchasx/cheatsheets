@@ -3,15 +3,20 @@
 # ~/.bashrc
 
 #my aliases
+
+alias composer='php /usr/local/bin/composer'
+
 # git
-alias gitcommands='less /home/chas/develop/github/programmers-cheat-sheets/040_git/git_commands'
 alias gs='git status'
-alias ga='git add $*'
+alias ga='git add .'
+alias gc='git commit -m $*'
+
+alias gitcommands='less ~/develop/it-notes/git/git_commands'
+alias gaf='git add $*'
 alias gaa='git add -A'
 alias gpl='git pull'
 alias gps='git push'
 alias gca='git commit -a $*'
-alias gc='git commit -m $*'
 alias gcam='git commit -am $*'
 alias gch='git checkout $*'
 alias gchf='git checkout -f'
@@ -21,8 +26,7 @@ alias glpo='git log --pretty=oneline'
 alias glpon='git log --pretty=oneline -n $*'
 
 # cd
-alias cdgithub='cd ~/develop/github/'
-alias cdprogrammers_cheat_sheets='cd ~/develop/github/programmers-cheat-sheets/'
+alias cditnotes='cd ~/develop/it-notes/'
 
 # show file
 alias aliases_tail45_etc_bash_bashrc='tail -n 45 /etc/bash.bashrc'

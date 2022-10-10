@@ -1,33 +1,19 @@
-# Мои настройки Ubuntu под веб-разработку на PHP
+# Мои настройки Ubuntu 22.04 для веб-разработки на PHP (конспект)
 
-Обновить пакеты 
 ```
 sudo apt upate && sudo apt upgrade
 ```
 
 
-## Создание точки восстановления системы с помощью `timeshift`
+### Создание точки восстановления системы с помощью `timeshift`
 ```
 sudo apt install timeshift
 ```
 Открыть `timeshift` (ищем в меню приложений) и настроить первую точку восстановления
 
-
-## Настройка консоли
-Редактирование файла .bashrc. Добавляем в конец:
-```
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]
-\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;33m\]$(
-    __git_ps1)\n\[\033[00m\]\[\033[0;31m\]\$\[\033[0;33m\] '
-```
-
-Запуск новой конфигурации:
-```
-source ./.bashrc
-```
-
-## Установка полезных пакетов
+### Установка полезных пакетов
 https://github.com/proffix4/dev_for_ubuntu22/blob/main/BASE_SOFT_INSTALL.sh
+
 ```
 sudo apt install gthumb retext qbittorrent gtkhash \
 		img2pdf okular okular-extra-backends calibre -y
@@ -47,22 +33,16 @@ sudo apt install default-jdk -y
 
 sudo apt-get install git -y
 # укажите ваше имя и почту ниже
-git config --global user.name "proffix4"
-git config --global user.email "proffix4@gmail.com"
+git config --global user.name "sdfsdf"
+git config --global user.email "sdfsdf@gmail.com"
 
 sudo apt install p7zip-full p7zip-rar -y
 ```
 
-## Настройка локали
+### Установка браузера `Firefox Developer Edition`
 
-```
-sudo dpkg-reconfigure locales
-```
-Выбор пробелом.
-
-
-## Установка браузера `Firefox Developer Edition`
 https://dev.to/harrsh2124/how-to-setup-firefox-developer-edition-on-ubuntu-4inp
+
 Cкачать с оф. сайта файл типа `firefox*.tar.bz2`
 ```
 sudo cp -rp firefox*.tar.bz2 /opt
@@ -89,7 +69,7 @@ StartupWMClass=Firefox Developer Edition
 chmod +x ~/.local/share/applications/firefox_dev.desktop
 ```
 
-## Установка php и некоторые модули к нему
+### Установка php и некоторых модулей к нему
 ```
 sudo apt install php8.1 -y
 sudo apt install php8.1-common php8.1-mysql php8.1-xml \
@@ -98,7 +78,7 @@ sudo apt install php8.1-common php8.1-mysql php8.1-xml \
  php8.1-opcache php8.1-soap php8.1-zip php8.1-intl php8.1-fpm -y 
 ```
 
-## Установка composer 2
+### Установка composer 2
 ```
 sudo apt install php-cli unzip
 cd ~
@@ -122,21 +102,21 @@ source ./.bashrc
 composer -v
 ```
 
-## Установка Node.js и npm
+### Установка Node.js и npm
 Версию меняем на нужную.
 ```
 curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
-## Установка MySQL
+### Установка MySQL
 ```
 sudo apt update
 sudo apt install mysql-server
 sudo systemctl start mysql.service
 sudo mysql_secure_installation
 
-# Если не получится изменить пароль - перезапускаем терминал и далее
+# Если не получится изменить пароль - перезапускаем терминал и пишем следующее
 
 sudo systemctl stop mysql.service
 sudo systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"
@@ -156,7 +136,7 @@ sudo snap install mysql-workbench-community
 ```
 После установки `mysql-workbench`, найдите его в приложении `Ubuntu Software` и поставьте галочки в `Permissions`. Тоже самое проделайте и для других пакетов (например, для WhatSie)
 
-## Установка Nginx
+### Установка Nginx
 
 ```bash
 sudo apt update
@@ -176,4 +156,60 @@ sudo update-rc.d apache2 disable
 
 ```
 
-## Установка docker и docker-compose
+### Установка docker и docker-compose
+https://totaku.ru/ustanovka-docker-i-docker-compose-na-ubuntu-22-04/
+
+
+### Настройка псевдонимов команд и консоли
+
+```
+cd ~
+nano .bashrc
+```
+Вставляем в конец файла
+
+```
+# двойная строка и подсветка ветки git
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]
+\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;33m\]$(
+    __git_ps1)\n\[\033[00m\]\[\033[0;31m\]\$\[\033[0;33m\] '
+
+
+#======== my aliases
+
+alias composer='php /usr/local/bin/composer'
+
+# git
+alias gs='git status'
+alias ga='git add .'
+alias gc='git commit -m $*'
+alias gaf='git add $*'
+alias gaa='git add -A'
+alias gpl='git pull'
+alias gps='git push'
+alias gca='git commit -a $*'
+alias gcam='git commit -am $*'
+alias gch='git checkout $*'
+alias gchf='git checkout -f'
+alias gbr='git branch'
+alias gl='git log'
+alias glpo='git log --pretty=oneline'
+alias glpon='git log --pretty=oneline -n $*'
+
+# docker
+alias docup='docker-compose up -d'
+alias docd='docker-compose down'
+alias docex='docker exec -it $*'
+
+# other
+alias showaliases='tail -n 45 ~.bashrc'
+alias h='history'
+alias c='clear'
+alias up='sudo apt update && sudo apt upgrade'
+alias scode='sudo code --no-sandbox --user-data-dir ~/supercode'
+alias psnginx='echo "command: ps -ax | grep nginx"; ps -ax | grep nginx'
+```
+Сохраняем, выходим из редактора и сохраняем настройки командой
+```
+source ./.bashrc
+```
