@@ -1,6 +1,0 @@
-
-DROP DATABASE test1;
-
-CREATE DATABASE test2;
-
-USE test2;
