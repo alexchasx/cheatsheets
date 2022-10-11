@@ -8,8 +8,6 @@ https://jeka.by/post/1003/rabotaem-s-mysql-cherez-komandnuyu-stroku/
 
 
 ```bash
-<<<<<<< HEAD
-
 sudo systemctl stop mysql
 # или
 sudo systemctl stop mysql.service
@@ -28,8 +26,6 @@ sudo /etc/init.d/mysql start
 # подключиться
 mysql -u root
 
-
-
 =======
 #
 sudo systemctl status mysql
@@ -47,7 +43,6 @@ sudo /etc/init.d/mysql start
 # подключиться
 mysql -u root
 
->>>>>>> 0aa0071a60a5e114c766d83a8febc3bbd37c901a
 ```
 
 ```mysql
@@ -71,8 +66,6 @@ WHERE
 name > 'Иван' AND
 works_since '1998-04-26';
 ```
-
-<<<<<<< HEAD
 
 Решение проблемы "su: предупреждение: не могу поменять каталог на /nonexistent: Нет такого файла или каталога":
 ```bash
@@ -105,4 +98,3 @@ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '';
 
 # применит внесённые изменения:
 FLUSH PRIVILEGES;
->>>>>>> 0aa0071a60a5e114c766d83a8febc3bbd37c901a
