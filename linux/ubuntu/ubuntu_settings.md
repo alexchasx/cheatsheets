@@ -200,9 +200,9 @@ alias glpo='git log --pretty=oneline'
 alias glpon='git log --pretty=oneline -n $*'
 
 # docker
-alias docup='docker-compose up -d'
-alias docd='docker-compose down'
-alias docex='docker exec -it $*'
+alias dup='docker-compose up -d'
+alias ddown='docker-compose down'
+alias dexec='docker exec -it $*'
 
 # other
 alias showaliases='tail -n 45 ~.bashrc'
