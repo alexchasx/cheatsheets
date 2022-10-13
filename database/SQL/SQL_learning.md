@@ -249,7 +249,7 @@ SELECT REPLACE(`name`, `a`, `A`) as `new_name` FROM `workers`
 ### Функции работы с датами и временем
 - NOW()
 - WEEKDAY(X) - возр. индекс дня недели для аргумента (0 - понедльник)
-- DAYOFMONTH(X)
+- DAYOFMONTH(X) - порядковый номер дня месяца
 - MONTH(X)
 X - дата
 
