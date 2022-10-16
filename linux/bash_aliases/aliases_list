@@ -1,8 +1,13 @@
-# /etc/bash.bashrc 
-# or 
-# ~/.bashrc
+# двойная строка и подсветка ветки git
+git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\
+\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;33m\
+$(git_branch)\n\[\033[00m\]\[\033[0;31m\]\$\[\033[0;33m\] '
 
-#my aliases
+
+#======== my aliases
 
 alias composer='php /usr/local/bin/composer'
 
@@ -10,8 +15,6 @@ alias composer='php /usr/local/bin/composer'
 alias gs='git status'
 alias ga='git add .'
 alias gc='git commit -m $*'
-
-alias gitcommands='less ~/develop/it-notes/git/git_commands'
 alias gaf='git add $*'
 alias gaa='git add -A'
 alias gpl='git pull'
@@ -25,27 +28,22 @@ alias gl='git log'
 alias glpo='git log --pretty=oneline'
 alias glpon='git log --pretty=oneline -n $*'
 
-# cd
-alias cditnotes='cd ~/develop/it-notes/'
+# docker
+alias dup='docker-compose up -d'
+alias ddown='docker-compose down'
+alias dexec='docker exec -it $*'
 
-# show file
-alias aliases_tail45_etc_bash_bashrc='tail -n 45 /etc/bash.bashrc'
-alias t_etc_bash_bashrc='tail -n 45 /etc/bash.bashrc'
-alias t_home_bashrc='tail -n 45 /etc/bash.bashrc'
-alias s1='sudo cat ~/Документы/3/s1'
-# alias s1='sudo cat ~/documents/3/s1'
-alias catgit_commands='cat /home/ch/develop/github/programmers-cheat-sheets/040_git/git_commands'
-alias catlinux_commands='cat /home/ch/develop/github/programmers-cheat-sheets/030_sysadmin/Linux/linux_commands'
-
-# edit file
-alias kaliases_etc_bash_bashrc='sudo kate /etc/bash.bashrc'
-alias kaliases_list='kate /home/ch/develop/github/programmers-cheat-sheets/010_tools/linux/bash_aliases/aliases_list'
-alias naliases_list='nano /home/ch/develop/github/programmers-cheat-sheets/010_tools/linux/bash_aliases/aliases_list'
-alias n_home_bashrc='sudo nano /etc/bash.bashrc'
+# laravel
+alias pa='php artisan $*'  
+alias paclear="php artisan cache:clear && php artisan view:clear && php artisan route:clear && php artisan config:clear"
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
 # other
+alias aliases='tail -n 45 ~.bashrc'
 alias h='history'
 alias c='clear'
 alias up='sudo apt update && sudo apt upgrade'
 alias scode='sudo code --no-sandbox --user-data-dir ~/supercode'
 alias psnginx='echo "command: ps -ax | grep nginx"; ps -ax | grep nginx'
+alias nanobash='sudo nano ~/.bashrc'
+alias source='source ~/.bashrc'

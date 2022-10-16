@@ -204,13 +204,20 @@ alias dup='docker-compose up -d'
 alias ddown='docker-compose down'
 alias dexec='docker exec -it $*'
 
+# laravel
+alias pa='php artisan $*'  
+alias paclear="php artisan cache:clear && php artisan view:clear && php artisan route:clear && php artisan config:clear"
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+
 # other
-alias showaliases='tail -n 45 ~.bashrc'
+alias aliases='tail -n 45 ~.bashrc'
 alias h='history'
 alias c='clear'
 alias up='sudo apt update && sudo apt upgrade'
 alias scode='sudo code --no-sandbox --user-data-dir ~/supercode'
 alias psnginx='echo "command: ps -ax | grep nginx"; ps -ax | grep nginx'
+alias nanobash='sudo nano ~/.bashrc'
+alias source='source ~/.bashrc'
 ```
 Сохраняем, выходим из редактора и сохраняем настройки командой
 ```
