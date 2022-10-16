@@ -56,7 +56,7 @@ sudo nano /etc/nginx/conf.d/mysite.local
 # Ubuntu 16.04: 
 sudo nano /etc/nginx/sites-available/mysite.local
 
-# /etc/nginx/nginx.conf/sites-available/mysite.local
+# /etc/nginx/sites-available/mysite.local
 server {
 	listen 127.0.01:80;
 
