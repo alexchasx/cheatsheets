@@ -215,14 +215,12 @@ SELECT AVG(`salary`) FROM `workers`;
 Задача: выбрать отдельно зарплату, премию и сумму зарплаты и премии одновременно.
 
 ```sql
-SELECT
-  `name`, `salary`, `bonus`,
+SELECT `name`, `salary`, `bonus`,
   (`salary` * `bonus`/100) AS `bonus_money`,
   (`salary` + `salary` * `bonus`/100) AS `total`,
 FROM `workers`;
 
-SELECT
-  SUM(`salary` + `salary` * `bonus`/100) AS `total`,
+SELECT SUM(`salary` + `salary` * `bonus`/100) AS `total`,
 FROM `workers`;
 ```
 
@@ -268,3 +266,173 @@ SELECT `id`, `name` FROM `workers`
 UNION
 SELECT `id`, `name` FROM `old_workers`
 ```
+
+### GROUP, HAVING
+
+```sql
+-- выбрать все роли без дубликатов
+SELECT DISTINCT `role` FROM `workers`;
+-- аналогично
+SELECT `role` FROM `workers` GROUP BY `role`;
+
+-- кол-во всех (плюс дубли)
+SELECT COUNT(`role`) FROM `workers`;
+
+-- кол-во уникальных ролей
+SELECT COUNT(DISTINCT `role`) FROM `workers`;
+
+-- кол-во по сгруппированным значениям
+SELECT `role`, COUNT(`role`) as `count` FROM `workers` GROUP BY `role`;
+
+-- условие на агрегацию (выбрать роли и ср.ЗП по ролям, где ср.ЗП д.б. больше 20К)
+-- HAVING работает как WHERE, но уже после группировки
+SELECT `role`, AVG(`salary`) as `avg_salary` 
+FROM `workers` 
+HAVING `avg_salary` > 20000
+GROUP BY `role`;
+
+-- Просто `name` не сработает. Применяем либо ANY_VALUE,
+-- либо группировать еще и по `name`
+SELECT `role`, ANY_VALUE(`name`), AVG(`salary`) as `avg_salary` 
+FROM `workers` 
+GROUP BY `role`;
+
+```
+
+
+### CROSS JOIN, INNER JOIN
+
+```sql
+-- JOIN = CROSS JOIN
+-- перемножит две таблицы (крест накрест)
+SELECT * FROM users JOIN departments;
+-- аналогично 
+SELECT * FROM users CROSS JOIN departments;
+
+-- INNER JOIN + ON = JOIN + ON
+SELECT * FROM users 
+JOIN departments ON user.id = departments.id;
+
+-- можно добавлять условия
+SELECT * FROM users 
+JOIN departments ON user.id = departments.id
+WHERE users.id > 1;
+```
+
+
+### LEFT JOIN, RIGHT JOIN
+
+```sql
+-- левая таблица будет выведена вся
+SELECT * FROM users 
+LEFT JOIN departments ON user.id = departments.id;
+
+SELECT * FROM users 
+RIGHT JOIN departments ON user.id = departments.id;
+
+-- Вывести имена всех сотрудников, которые работают над проектами 
+-- в названии которых есть буква "р" (три таблицы)
+SELECT `workers`.`name` FROM `workers`
+JOIN `projects_workers` ON `worker`.`id` = `project_workers`.`worker_id`
+JOIN `projects` ON `projects`.`id` = `project_workers`.`project_id`
+WHERE `project`.`name` LIKE '%h%'
+GROUP BY `workers`.`name`;
+```
+
+### DELETE, TRUNCATE
+
+```sql
+-- удалить всё из таблицы
+DELETE FROM `workers`;
+
+-- удалить по условию
+DELETE FROM `workers` WHERE `id` = 2;
+
+-- удалить 2-х самых молодых сотрудников
+DELETE FROM `workers` ORDER BY `birthday` LIMIT 2;
+
+-- Удаляет все данные
+-- Не допускает никаких условий
+-- Сбрасывает счетчик автоинкремента
+-- Работает быстрее, чем DELETE
+TRUNCATE TABLE `workers`;
+
+-- Многотабличное удаление (например, из таблиц `workers`, `projects_workers` и `projects`)
+DELETE `workers`, `projects_workers`
+FROM `workers`, `projects_workers`
+WHERE `workers`.`id`=`projects_workers`.`workers_id`
+  AND `workers`.`id` = 3;
+```
+
+
+### UPDATE
+```sql
+UPDATE `workers` SET `name` = `Пример`;
+
+UPDATE `workers` SET `name` = `Пример` 
+WHERE `id` = 3
+ORDER BY `id` LIMIT 1;
+
+-- Можно накладывать выражения как в SELECT
+UPDATE `workers` SET `salary` = `salary` * 1.1;
+
+-- Можно проводить манипуляции с несколькими столбцами
+UPDATE `workers` 
+SET `salary` = `salary` * 1.1, `role` = 'Мастер'
+WHERE `role` = 'Разнорабочий';
+
+UPDATE + JOIN
+
+```
+
+
+### Вложенные запросы (Подзапросы)
+
+```sql
+-- Выбрать сотрудников с зарплатой выше средней:
+SELECT * FROM `workers`
+WHERE `salary` > (SELECT AVG(`salary`) FROM `workers`);
+
+-- Выбрать всех сотрудников из отдела, в котором работает самый высокооплачиваемый сотрудник
+SELECT * FROM `workers` WHERE `department_id` = (
+  SELECT `department_id` FROM `workers` WHERE `salary` = (
+    SELECT MAX(`salary`) FROM `workers`
+  )
+);
+
+-- Выбрать все отделы, в которых работает больше 1 сотрудника
+SELECT * FROM `departments` WHERE `id` IN (
+  SELECT `department_id` FROM `workers`
+  GROUP BY `department_id` HAVING COUNT(*) > 1
+);
+
+-- Выбрать отделы с указанием средней зарплаты в каждом из них
+SELECT *, (
+  SELECT AVG(`salary`) FROM `workers`
+  WHERE `workers`.`department_id` = `departments`.`id`
+) as `avg_salary` FROM `departments`;
+
+```
+Подзапросы можно указывать в секции FROM / JOIN.
+
+Ограничения подзапросов:
+- Нельзя изменять/удалять данные в таблице, если ее данные используются в подзапросе этого запроса
+- Не поддерживается LIMIT в подзапросах
+
+Производительность:
+- По возможности стоит избегать подзапросов
+- Использовть как можно меньше уровней вложенности подзапросов
+
+
+### DESCRIBE, ALTER
+
+```sql
+-- Описание структуры таблицы
+DESCRIBE `workers`;
+
+-- Добавление столбцов в таблицу
+ALTER TABLE `workers`
+ADD COLUMN `last_name` varchar(255) FIRST `name`,
+ADD COLUMN `middle_name` varchar(255) AFTER `name`;
+```
+
