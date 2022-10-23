@@ -11,7 +11,10 @@ git status
 git add <file1> <file2> ... <fileN>  
 
 # добавить все файлы в папке
-git add .   
+git add .  
+
+# убрать из индекса
+git rm --cached <file|dir>
 
 # зафиксиовать изменения
 git commit –m "<Введите ваше сообщение о фиксации здесь>"

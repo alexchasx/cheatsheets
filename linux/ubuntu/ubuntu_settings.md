@@ -206,7 +206,7 @@ alias dexec='docker exec -it $*'
 
 # laravel
 alias pa='php artisan $*'  
-alias paclear="php artisan cache:clear && php artisan view:clear && php artisan route:clear && php artisan config:clear"
+alias paclear='php artisan cache:clear && php artisan view:clear && php artisan route:clear && php artisan config:clear && php artisan clear-compiled'
 alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
 # other
