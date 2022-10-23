@@ -1,5 +1,5 @@
 
-# Configuring console command aliases
+# Configuring console command aliases in Openserver
 
 Settings path: 
 console -> right mouse button -> Settings -> Startup -> Environment
