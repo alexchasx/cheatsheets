@@ -1,3 +1,42 @@
+# quick start
+
+```bash
+
+# check
+sudo service nginx status 
+ps -ax | grep nginx
+sudo service php8.1-fpm status 
+sudo systemctl status apache2
+
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/site1
+sudo ln -s /etc/nginx/sites-available/site1 /etc/nginx/sites-enabled/
+sudo mcedit /etc/nginx/sites-available/site1
+# 1) delete 'default_server';
+# 2) server_name site1;
+
+sudo mcedit /etc/hosts
+# 127.0.0.1 site1
+
+sudo nginx -t
+sudo service nginx stop
+sudo service nginx start
+
+# check: http://site1
+
+mkdir /home/myuser/sites/site1
+touch /home/myuser/sites/site1/index.html
+git
+sudo mcedit /etc/nginx/sites-available/site1
+# root /home/myuser/sites/site1;
+
+# check: http://site1
+# if there are problems:
+# check checking the rights to the folders
+# or create site in /var/www/
+sudo nginx -V
+# check logs
+
+```
 
 # Настройка виртуальных хостов
 https://veesp.com/ru/blog/how-to-setup-lnmp-on-ubuntu/

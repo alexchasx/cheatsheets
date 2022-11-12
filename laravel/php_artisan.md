@@ -1,6 +1,8 @@
 ## Команды Laravel CLI
 
 ```bash
+composer create-project laravel/laravel project
+
 php artisan cache:clear && php artisan view:clear && php artisan route:clear && php artisan config:clear && php artisan clear-compiled
 ```
 

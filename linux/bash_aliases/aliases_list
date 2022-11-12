@@ -50,3 +50,6 @@ alias source='source ~/.bashrc'
 
 export PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/alex/.config/composer/vendor/bin'
 alias laravel='/home/alex/.config/composer/vendor/bin/laravel'
+
+alias puf='./vendor/bin/phpunit --filter=$*' 
+
