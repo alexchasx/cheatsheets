@@ -47,3 +47,5 @@ alias scode='sudo code --no-sandbox --user-data-dir ~/supercode'
 alias psnginx='echo "command: ps -ax | grep nginx"; ps -ax | grep nginx'
 alias nanobash='sudo nano ~/.bashrc'
 alias source='source ~/.bashrc'
+
+alias puf='./vendor/bin/phpunit --filter=$*' 
