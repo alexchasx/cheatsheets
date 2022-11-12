@@ -23,11 +23,17 @@ sudo service nginx start
 
 # check: http://site1
 
-mkdir /home/myuser/sites/site1
-touch /home/myuser/sites/site1/index.html
-git
+cd /home/myuser/sites
+mkdir site1 && cd site1
+mcedit index.html
+# <html>TEST</html>
+
 sudo mcedit /etc/nginx/sites-available/site1
 # root /home/myuser/sites/site1;
+
+sudo nginx -t
+sudo service nginx stop
+sudo service nginx start
 
 # check: http://site1
 # if there are problems:
