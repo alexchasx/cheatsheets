@@ -3,20 +3,40 @@
 ```bash
 
 
-composer install    # если есть composer.lock (composer.lock не позволяет автоматически получать последние версии)
-? composer update     # если нужно обновиться до последних версий
-npm install         # уст-ка npm-завис-ти (см. package.jsoon)
-npm audit fix --force  # если попросит
-npm run dev         # запуск команды из package.json: scripts: dev
+composer install    
+    # если есть composer.lock (composer.lock не позволяет автоматически получать последние версии)
 
-# создать файл .env по примеру .env.example
+composer update     
+    # если нужно обновиться до последних версий
 
-php artisan key:generate    # записывает APP_KEY в файле .env
+cp .env.example .env
+    # копир. и редактир.
 
-php artisan storage:link # создать симлинк папки storage в папке public
+php artisan key:generate    
+    # записывает APP_KEY в файле .env
 
-# создать БД
+php artisan storage:link 
+    # создать симлинк папки storage в папке public
 
-php artisan migrate --seed # запуск миграций + создание тестовых данных
+sudo service mysql status
+sudo service mysql start
+sudo mysq
+CREATE DATABASES mybd
+    # создать БД
+
+php artisan migrate --seed 
+    # запуск миграций + создание тестовых данных
+
+    
+npm install         
+    # уст-ка npm-завис-ти (см. package.jsoon)
+
+npm audit fix --force  
+    # если попросит
+
+npm run dev
+    # запуск команды из package.json: scripts: dev
+
+php artisan serve
 
 ```

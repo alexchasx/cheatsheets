@@ -35,6 +35,7 @@ php artisan make:listener ClearSidebarCache [--event] [--queued]
 5) Прописать генерацию события в нужном месте:
 ```php
     Illuminate\Support\Facades\Event::dispatch(new ArticleCreated($article));
+    
     // или (медленнее)
     event(new ArticleCreated($article));
 
