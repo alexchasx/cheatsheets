@@ -25,39 +25,26 @@ $posts = Post::where('name','=', 'vasia')
 
 3) Правильно считайте кол-во записей в таблице.
 
-Правильно:
 
 ```php
+// Правильно:
 // select count(*) from posts
-$posts = Post::count();     
-// или
-$posts = DB::table('posts')->count();
-```
+$posts = Post::count();
 
-Не правильно:
-
-```php
+// Не правильно:
 // ( select * from posts )->count()
-$posts = Post::all()->count();  
-// или
-$posts = DB::table('posts')->get()->count();
+$posts = Post::all()->count();
 ```
 
 4) Избегайте проблемы `N+1`. Используйте `жадную загрузку`.
 
-Проблема `N+1` - это, когда для каждой записи основной таблицы запроса выполняются множество дополнительных запросов к связанной талице. Вместо этого можно один запрос к связанной таблице.
+Проблема `N+1` - это, когда для каждой записи основной таблицы выполняется отдельный запрос к связанной талице. Вместо этого можно один запрос к связанной таблице для всех записей из основной таблицы.
 
 ```php
-// избегайте делать так
-$posts = Post::all();
-// лучше делайте так
-$posts = Post::with(['user'])->get();
-```
+$posts = Post::with(['user'])->get([/** */]);
 
-Эта же проблема может возникать с вложенными отношениями. Решается так:
-
-```php
-$posts = Post::with(['user.team'])->get();
+// Для вложенных отношений
+$posts = Post::with(['user.team'])->get([/** */]);
 ```
 
 5) Используйте индексацию для часто запрашиваемых полей.
@@ -69,8 +56,7 @@ Schema::table('posts', function (Blueprint $table) {
 });
 ```
 
-6) Предпочитайте использовать `simplePaginate` вместо `Paginate`.
-simplePaginate - не может считать общее кол-во записей.
+6) Предпочитайте использовать `simplePaginate` вместо `Paginate` (simplePaginate - не может считать общее кол-во записей).
 
 7) Выделяйте поля с большими данными в отдельную таблицу.
 
@@ -97,15 +83,16 @@ $posts = Post::orderBy('created_at', 'desc')->get();
 11) Создавайте индексы только под медленные запросы
 
 
-### Поиск медленных запросов к будут
+### Поиск медленных запросов
 
 ```php
 // AppServiceProvider:
 public function boot()
 {
     DB::listen(function ($query) {
-        $stackTrace = collect(debug_backtrace())->filter(function ($trace) {
-            return !str_contains($trace['file'], 'vendor/');
+        $stackTrace = collect(debug_backtrace())
+            ->filter(function ($trace) {
+                return !str_contains($trace['file'], 'vendor/');
         });
         
         dd($stackTrace);
@@ -120,10 +107,13 @@ public function boot()
 public function boot()
 {
     DB::listen(function ($query) {
-        $location = collect(debug_backtrace())->filter(function ($trace) {
-            return !str_contains($trace['file'], 'vendor/');
+        $location = collect(debug_backtrace())
+            ->filter(function ($trace) {
+                return !str_contains($trace['file'], 'vendor/');
         })->first(); // берем первый элемент не из каталога вендора
+
         $bindings = implode(", ", $query->bindings); // форматируем привязку как строку
+        
         Log::info("
                ------------
                Sql: $query->sql
