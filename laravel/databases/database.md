@@ -1,7 +1,7 @@
 
-### Работа с БД
+### Динамические настройки БД и дебажинг
 
-1) Разные соединения для чтения и записи (CQRS)
+- Разные соединения для чтения и записи (CQRS):
 
 ```php
 // config/database.php
@@ -12,16 +12,18 @@
 ]
 ```
 
-2) Использование нескольких подключений
+- Использование нескольких подключений:
 
 ```php
 $users = DB::connection('sqlite')->select(/* ... */);
+
+$pdo = DB::connection()->getPdo();
 ```
 
-3) Прослушивание событий запроса
+- Прослушивание событий запроса:
 
 ```php
-// AppServiceProvider::boot
+// App\Providers\AppServiceProvider::boot
     DB::listen(function ($query) {
         // $query->sql;
         // $query->bindings;
@@ -29,16 +31,16 @@ $users = DB::connection('sqlite')->select(/* ... */);
     });
 ```
 
-4) Контроль порогового времени запроса (в миллисекундах)
+- Контроль порогового времени запроса (в миллисекундах):
 
 ```php
-// AppServiceProvider::boot
+// App\Providers\AppServiceProvider::boot
     DB::whenQueryingForLongerThan(500, function (Connection $connection) {
         // Уведомить разработчиков...
     });
 ```
 
-5) Транзакции
+- Транзакции:
 
 ```php
 DB::transaction(function () {

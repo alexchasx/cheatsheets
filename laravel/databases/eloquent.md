@@ -1,8 +1,59 @@
-<?php
+### Добавление записей в БД с помощью консольной утилиты "tinker"
 
-// Сразу прошу обратить внимание, что описание методов приведено в стиле аннотации и
-// указаны не совсем по стандартам (к примеру, пропушены
-// @param). Это сделано намеренно с целью снизить информационную нагрузку.
+
+```bash
+
+# Создаём основную запись
+
+>>> use Illuminate\Support\Facades\Hash;
+>>> use App\Models\User;
+>>>  $user = User::create(['name' => 'admin',
+... 'email' => 'admin@bboard.ru',
+... 'password' => Hash::make('admin')]);
+
+
+### Использование связи "один ко многим"
+
+# 1-й способ:
+
+>>> use App\Models\Bb;
+>>> $bb = new BB();
+>>> $bb->title = 'Пылесос';
+>>> $bb->content = 'Старый, без шланга';
+>>> $bb->price = 500;
+>>> $user->bbs()->save($bb);
+
+# 2-й способ:
+
+>>> $user->bbs()->create(['title' => 'Грузовик',
+... 'content' => 'Грузоподъмность - 5 т',
+... 'price' => 1000000]);
+
+# 3-й способ:
+
+>>> $bb = new Bb(['title' => 'Шкаф',
+... 'content' => 'Совсем новый, полированный, двухстворчатый',
+... 'price' => 1000]);
+>>> $bb->user()->associate($user);
+>>> $bb->save();
+
+```
+
+```php
+## Eloquent: Удаление записи в БД. Конспект
+// 1)
+$user = User::find(1);
+$user->delete();
+
+// 2)
+User::destroy(1);
+User::destroy([1, 2, 3]);
+User::destroy(1, 2, 3);
+
+// 3)
+$affectedRows = User::where('votes', '>', 100)->delete();
+
+
 
 /**
  * Создать и вернуть экземпляр несохраненной модели.
@@ -472,3 +523,4 @@ Model::withoutGlobalScopes(array $scopes = null);
  */
 Model::removedScopes();
 
+```
