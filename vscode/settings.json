@@ -2,8 +2,6 @@
   "settingsSync.ignoredExtensions": [],
   "workbench.startupEditor": "none",
   "security.workspace.trust.untrustedFiles": "open",
-  // "php.validate.executablePath": "c:\\OpenServer\\modules\\php\\PHP_8.1\\php.exe",
-  // "symfony-vscode.phpExecutablePath": "c:\\OpenServer\\modules\\php\\PHP_8.1\\php.exe",
   "files.eol": "\n",
   "terminal.explorerKind": "external",
   "terminal.integrated.cursorBlinking": true,
@@ -15,9 +13,6 @@
     "editor.defaultFormatter": "vscode.css-language-features"
   },
   "editor.accessibilitySupport": "off",
-  "remote.SSH.remotePlatform": {
-    "151.248.116.119": "linux"
-  },
   "editor.tabSize": 2,
   "editor.hover.enabled": false,
   "terminal.integrated.defaultProfile.windows": "Git Bash",
@@ -48,8 +43,7 @@
   },
   "editor.formatOnSaveMode": "modifications",
   "editor.screenReaderAnnounceInlineSuggestion": true,
-  "editor.codeActionsOnSave": {   
-  
+  "editor.codeActionsOnSave": {  
     "source.fixAll.eslint": true  
   },
   "editor.minimap.enabled": false,
