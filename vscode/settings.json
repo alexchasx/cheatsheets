@@ -1,0 +1,67 @@
+{
+  "settingsSync.ignoredExtensions": [],
+  "workbench.startupEditor": "none",
+  "security.workspace.trust.untrustedFiles": "open",
+  // "php.validate.executablePath": "c:\\OpenServer\\modules\\php\\PHP_8.1\\php.exe",
+  // "symfony-vscode.phpExecutablePath": "c:\\OpenServer\\modules\\php\\PHP_8.1\\php.exe",
+  "files.eol": "\n",
+  "terminal.explorerKind": "external",
+  "terminal.integrated.cursorBlinking": true,
+  "editor.unicodeHighlight.allowedLocales": {
+    "ru": true
+  },
+  "workbench.colorTheme": "Atom One Dark",
+  "[css]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "editor.accessibilitySupport": "off",
+  "remote.SSH.remotePlatform": {
+    "151.248.116.119": "linux"
+  },
+  "editor.tabSize": 2,
+  "editor.hover.enabled": false,
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "security.workspace.trust.enabled": false,
+  "editor.linkedEditing": true,
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.autoSave": "onFocusChange",
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.jsxSingleQuote": true,
+  "git.openRepositoryInParentFolders": "never",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.singleQuote": true,
+  "window.zoomLevel": -1,
+  "javascript.updateImportsOnFileMove.enabled": "never",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "liveServer.settings.donotShowInfoMsg": true,
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSaveMode": "modifications",
+  "editor.screenReaderAnnounceInlineSuggestion": true,
+  "editor.codeActionsOnSave": {   
+  
+    "source.fixAll.eslint": true  
+  },
+  "editor.minimap.enabled": false,
+  "editor.rulers": [
+    80,
+    {
+      "column": 100,
+      "color": "#ff00FF"
+    },
+    {
+      "column": 120,
+      "color": "#ff0000"
+    },
+  ]
+}
