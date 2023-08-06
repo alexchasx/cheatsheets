@@ -1,5 +1,7 @@
 {
-  "settingsSync.ignoredExtensions": [],
+  "settingsSync.ignoredExtensions": [
+  
+  ],
   "workbench.startupEditor": "none",
   "security.workspace.trust.untrustedFiles": "open",
   "files.eol": "\n",
@@ -8,12 +10,10 @@
   "editor.unicodeHighlight.allowedLocales": {
     "ru": true
   },
-  "workbench.colorTheme": "Atom One Dark",
   "[css]": {
     "editor.defaultFormatter": "vscode.css-language-features"
   },
   "editor.accessibilitySupport": "off",
-  "editor.tabSize": 2,
   "editor.hover.enabled": false,
   "terminal.integrated.defaultProfile.windows": "Git Bash",
   "security.workspace.trust.enabled": false,
@@ -22,7 +22,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "files.autoSave": "onFocusChange",
-  "eslint.workingDirectories": [{ "mode": "auto" }],
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -32,7 +31,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "prettier.singleQuote": true,
-  "window.zoomLevel": -1,
   "javascript.updateImportsOnFileMove.enabled": "never",
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -43,19 +41,29 @@
   },
   "editor.formatOnSaveMode": "modifications",
   "editor.screenReaderAnnounceInlineSuggestion": true,
-  "editor.codeActionsOnSave": {  
+  "editor.codeActionsOnSave": {
+
     "source.fixAll.eslint": true  
   },
-  "editor.minimap.enabled": false,
   "editor.rulers": [
-    80,
-    {
-      "column": 100,
-      "color": "#ff00FF"
-    },
-    {
-      "column": 120,
-      "color": "#ff0000"
-    },
-  ]
+    80
+  ],
+  "terminal.integrated.defaultLocation": "editor",
+  "workbench.iconTheme": "material-icon-theme",
+  "tabnine.experimentalAutoImports": true,
+  "editor.guides.bracketPairs": true,
+  "editor.fontWeight": "normal",
+  "vetur.format.options.tabSize": 2,
+  "editor.tabSize": 2,
+  "liveSassCompile.settings.autoprefix": [
+
+  ],
+  "editor.guides.indentation": false,
+  "window.zoomLevel": -1,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "liveSassCompile.settings.includeItems": [
+    
+  ],
 }
