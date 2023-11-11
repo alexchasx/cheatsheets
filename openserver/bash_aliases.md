@@ -9,7 +9,8 @@ console -> right mouse button -> Settings -> Startup -> Environment
 alias h=history
 alias c=clear
 alias cd~=cd %ConEmuDir%\..\..\domains
-alias cd1=cd %ConEmuDir%\..\..\domains\a-laravel-orchid-blog\dev_laravel-orchid-blog
+alias cd1=cd %ConEmuDir%\..\..\domains\html
+alias cd2=cd %ConEmuDir%\..\..\domains\local
 
 # git
 alias gs=git status 
