@@ -1,6 +1,12 @@
 https://carbon.nesbot.com/
 
+https://github.com/briannesbitt/Carbon/blob/master/src/Carbon/Carbon.php
+
+https://github.com/briannesbitt/Carbon/blob/master/src/Carbon/CarbonImmutable.php?ysclid=lq96dswt23396971726
+
 ```php
+$immutable = Carbon::now()->toImmutable();
+
 $carbon = new Carbon();     // объект текущ. даты + время
 $carbon = Carbon::today();  // сегодня
 $carbon = Carbon::tomorrow();  // завтра
@@ -37,6 +43,10 @@ echo $carbon->month;   // 11
 ### Локализация
 
 ```php
+Carbon::setLocale('ru_Ru'); // Прописать в AppServiceProvider::boot()
+$carbon->traslatedFormat('F'); // Вывести месяц словом
+
+// или
 setlocale(LC_TIME, 'Russian');
 echo $carbon->formatLocalized('%A %d %B %Y');  // но в кодировке windows-1251
 echo iconv('windows-1251', 'utf-8', $carbon->formatLocalized('%A %d %B %Y')); // преобразование в кодировку utf-8
@@ -70,10 +80,17 @@ $carbon->subYears(10);      // минус 10 лет от даты
 $carbon->addCentury();      // добавить век (по умолчанию 1)
 // и так далее
 
+$carbon->add(1, 'day');
+
 echo $carbon->diffForHumans($carbon2);  // разница в человекопонятном виде, например: "6 years after"
 echo $carbon->diffInHourse($carbon2);   // разница в часах
 echo $carbon->diffInDays($carbon2);     // разница в днях
 // и так далее
 
+```
 
+### Формат
+
+```php
+$mutable->isoFormat('dddd D');             // string(9) "Sunday 10"
 ```

@@ -14,20 +14,12 @@ alias cd2=cd %ConEmuDir%\..\..\domains\local
 
 # git
 alias gs=git status 
-alias ga=git add .
-alias gc=git commit -m $* 
-alias gaf=git add $* 
-alias gaa=git add -A 
+alias gcam=git commit -am $* 
 alias gpl=git pull 
 alias gps=git push 
-alias gca=git commit -a $* 
-alias gcam=git commit -am $* 
+alias ga=git add .
 alias gch=git checkout $* 
-alias gchf=git checkout -f
-alias gbr=git branch 
-alias gl=git log
 alias glpo=git log --pretty=oneline 
-alias glpon=git log --pretty=oneline -n $*
 
 # laravel
 alias pa=php artisan $*  
