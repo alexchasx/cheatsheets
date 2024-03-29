@@ -1,7 +1,7 @@
 # Мои настройки Ubuntu 22.04 для веб-разработки на PHP (конспект)
 
 ```
-sudo apt upate && sudo apt upgrade
+sudo apt update && sudo apt upgrade
 ```
 
 
@@ -200,16 +200,21 @@ alias glpo='git log --pretty=oneline'
 alias glpon='git log --pretty=oneline -n $*'
 
 # docker
-alias dup='docker-compose up -d'
-alias ddown='docker-compose down'
-alias dexec='docker exec -it $*'
+alias d1='docker-compose up -d'
+alias d2='docker exec -it $*'
+alias d3='docker-compose down'
 
 # laravel
 alias pa='php artisan $*'  
 alias paclear='php artisan cache:clear && php artisan view:clear && php artisan route:clear && php artisan config:clear && php artisan clear-compiled'
 alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
+alias m0='php artisan make:migration $'
+alias m1='php artisan migrate'
+alias m2='php artisan migrate:rollback'
+
 # other
+alias n1='npm run watch'
 alias aliases='tail -n 45 ~.bashrc'
 alias h='history'
 alias c='clear'
@@ -223,3 +228,14 @@ alias source='source ~/.bashrc'
 ```
 source ~/.bashrc
 ```
+### Установить gnome-tweaks
+```
+sudo apt-get install gnome-tweaks
+```
+
+### установка Docker и docker-compose
+https://timeweb.cloud/tutorials/docker/kak-ustanovit-docker-na-ubuntu-22-04
+
+## Настройка прав для Docker
+sudo groupadd docker 
+sudo gpasswd -a $USER docker 
