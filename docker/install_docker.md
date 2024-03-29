@@ -50,3 +50,7 @@ sudo systemctl enable containerd.service
 # Чтобы отключить это поведение
 sudo systemctl disable docker.service
 sudo systemctl disable containerd.service
+
+## Настройка прав для Docker
+sudo groupadd docker 
+sudo gpasswd -a $USER docker 
