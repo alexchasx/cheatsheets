@@ -18,6 +18,7 @@ dquote> no-comments" > ~/.gnupg/gpg.conf
 
 ### проверка
 gpg -k     # покажет публиный ключ
+gpg -K     # покажет приватный ключ
 
 
 ### шифрование файла dfgg.xlsx
@@ -28,4 +29,17 @@ gpg -e -a -r a.s.chasovnikov@yandex.ru dfgg.xlsx
 gpg -d -o dfgg.xlsx dfgg.xlsx.asc  
 
 ### эскпорт ключей в файл
-gpg --export a.s.chasovnikov@yandex.ru > public.gpg
+gpg --export -a a.s.chasovnikov@yandex.ru > public.gpg
+gpg --export-secret-key -a a.s.chasovnikov@yandex.ru > secret.gpg
+
+### удаление ключей
+gpg --delete-secret-keys a.s.chasovnikov@yandex.ru
+gpg --delete-keys a.s.chasovnikov@yandex.ru
+
+### мпорт ключей из файлов
+ gpg --import public.gpg
+  gpg --import secret.gpg
+
+### проверка
+gpg -k     # покажет публиный ключ
+gpg -K     # покажет приватный ключ
