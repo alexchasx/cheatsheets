@@ -4,7 +4,7 @@ cd ~
 nano .bashrc
 
 Вставляем в конец файла
-
+```
 # двойная строка и подсветка ветки git
 git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
@@ -42,7 +42,7 @@ alias d1='docker-compose down; docker-compose up -d; docker exec -it cot_app bas
 alias d2='docker exec -it cot_app bash'
 alias d3='docker exec -it cot_db bash'
 alias d4='docker exec -it cot_nginx bash'
-alias cd1='~/_elcom/_cot/'
+alias cd1='cd ~/_elcom/_cot/'
 
 # laravel
 alias pa='php artisan $*'  
@@ -63,6 +63,7 @@ alias scode='sudo code --no-sandbox --user-data-dir ~/supercode'
 alias psnginx='echo "command: ps -ax | grep nginx"; ps -ax | grep nginx'
 alias nanobash='sudo nano ~/.bashrc'
 alias source='source ~/.bashrc'
+```
 
 Сохраняем, выходим из редактора и сохраняем настройки командой
 
