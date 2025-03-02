@@ -56,3 +56,21 @@ gpg --import secret.gpg
 gpg -k     # покажет публиный ключ
 gpg -K     # покажет приватный ключ
 ```
+
+## Перенос на Windows
+
+- Скопировать файлы public.gpg, secret.gpg на c:\_documents\3\
+- Запустить Ubunutu под WSL
+- Перейти из под Ubuntu на c:\_documents\3\
+```
+cd /mnt/c/_documents/3/
+
+gpg --import public.gpg
+gpg --import secret.gpg
+
+# расшифровка
+gpg -d -o dfgg.xlsx dfgg.xlsx.asc
+
+# шифрование
+gpg -e -a -r a.s.chasovnikov@yandex.ru dfgg.xlsx
+```
