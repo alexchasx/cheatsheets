@@ -1,7 +1,8 @@
 # Шифрование файлов с помощью GPG
 
-## создание ключа
-```
+```bash
+# создание ключа
+
  gpg --full-gen-key 
 1
 4096
@@ -14,55 +15,46 @@ echo "keyid-format 0xlong              ✔  3m 41s 
 dquote> throw-keyids
 dquote> no-emit-version
 dquote> no-comments" > ~/.gnupg/gpg.conf
-```
 
-### проверка
-```
+# проверка
+
 gpg -k     # покажет публиный ключ
 gpg -K     # покажет приватный ключ
-```
 
-### шифрование файла dfgg.xlsx
-```
+# шифрование файла dfgg.xlsx
+
 gpg -e -a -r email@yandex.ru dfgg.xlsx
-```
 
+# расшифровка файла из dfgg.xlsx.asc в dfgg.xlsx
 
-### расшифровка файла из dfgg.xlsx.asc в dfgg.xlsx
-```
 gpg -d -o dfgg.xlsx dfgg.xlsx.asc
-```
 
-### эскпорт ключей в файл
-```
+# эскпорт ключей в файл
+
 gpg --export -a email@yandex.ru > public.gpg
 gpg --export-secret-key -a email@yandex.ru > secret.gpg
-```
 
-### удаление ключей
-```
+# удаление ключей
+
 gpg --delete-secret-keys email@yandex.ru
 gpg --delete-keys email@yandex.ru
-```
 
-### мпорт ключей из файлов
-```
+# импорт ключей из файлов
+
 gpg --import public.gpg
 gpg --import secret.gpg
-```
 
-### проверка
-```
+# проверка
+
 gpg -k     # покажет публиный ключ
 gpg -K     # покажет приватный ключ
-```
 
-## Перенос на Windows
+# Перенос на Windows
 
-- Скопировать файлы public.gpg, secret.gpg на c:\_documents\3\
-- Запустить Ubunutu под WSL
-- Перейти из под Ubuntu на c:\_documents\3\
-```
+# Скопировать файлы public.gpg, secret.gpg на c:\_documents\3\
+# Запустить Ubunutu под WSL
+# Перейти из под Ubuntu на c:\_documents\3\
+
 cd /mnt/c/_documents/3/
 
 gpg --import public.gpg
