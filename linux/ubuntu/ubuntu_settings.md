@@ -201,8 +201,10 @@ alias glpon='git log --pretty=oneline -n $*'
 
 # docker
 alias d1='docker-compose up -d'
-alias d2='docker exec -it $*'
-alias d3='docker-compose down'
+alias d2='docker-compose down'
+alias d3='docker exec -it cot_app bash'
+alias d4='docker exec -it cot_db bash'
+alias d5='docker exec -it cot_nginx bash'
 
 # laravel
 alias pa='php artisan $*'  
