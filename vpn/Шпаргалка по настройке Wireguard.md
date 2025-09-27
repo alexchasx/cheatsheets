@@ -34,7 +34,7 @@ cd /etc/wireguard
 wg genkey | tee /etc/wireguard/server_privatekey | wg pubkey | tee /etc/wireguard/server_pubkey
 # имена файлов любые
 
-wg genkey | tee /etc/wireguard/server_privatekey | wg pubkey | tee /etc/wireguard/server_pubkey
+wg genkey | tee /etc/wireguard/client1_privatekey | wg pubkey | tee /etc/wireguard/client1_pubkey
 
 # смотрим ключи. Далее будем их копировать в файл настроек
 cat server_privatekey
