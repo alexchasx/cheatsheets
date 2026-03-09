@@ -1,0 +1,14 @@
+
+```bash
+sudo dpkg --install dbeaver-ce_25.2.4_amd64.deb
+```
+
+```bash
+dpkg -i pkg_name 	   
+
+df -h 	    #Отобразить свободное место на смонтированных разделах (в байтах)
+
+chmod 766 /data/test.c 	#Права rwx для владельца, rw для групп и остальных
+chown -R chas:chas /var/www  #назн. владельцем
+
+```
