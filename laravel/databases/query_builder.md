@@ -39,39 +39,53 @@ $builder = $builder
         [$columns, 'like', '1'],
         [$columns, '<>', '1'],
     ])
+
+    // группировка условий или подзапросы
     ->where(function ($query) {
         $query->select('type')
             ->from('membership')
             ->whereColumn('membership.user_id', 'users.id')
             ->limit(1);
     }, 'Pro')
-    ->orWhere('name', 'John')
     ->orWhere(function($query) {
         $query->where('name', 'Abigail')
                 ->where('votes', '>', 50);
     })
-    ->whereFullText('bio', 'web developer')
-    ->whereNot('name', 'John')
-    ->whereNotNull('updated_at')
-    ->whereNull('last_name')
-    ->whereIn('id', [1, 2, 3])
-    ->whereRaw('price > IF(state = "TX", ?, 100)', [200])
-    ->whereColumn('first_name', 'last_name'
-    )->whereColumn([
-        ['first_name', '=', 'last_name'],
-        ['updated_at', '>', 'created_at'],
-    ])
     ->whereExists(function ($query) {
         $query->select(DB::raw(1))
                 ->from('orders')
                 ->whereColumn('orders.user_id', 'users.id');
     })
 
+    ->orWhere('name', 'John')
+    ->whereFullText('bio', 'web developer')
+    ->whereNot('name', 'John')
+    ->whereNotNull('updated_at')
+    ->whereNull('last_name')
+    ->whereIn('id', [1, 2, 3])
+    // использование SQL внутри билдера:
+    ->whereRaw('price > IF(state = "TX", ?, 100)', [200])
+
+    // где одно поле равно другому
+    ->whereColumn('first_name', 'last_name')
+    ->whereColumn([
+        ['first_name', '=', 'last_name'],
+        ['updated_at', '>', 'created_at'],
+    ])
+
+    // по датам:
     ->whereDate('created_at', '2016-12-31')
     ->whereMonth('created_at', '12')
     ->whereDay('created_at', '31')
     ->whereYear('created_at', '2016')
     ->whereTime('created_at', '=', '11:20:45')
+
+// WHERE FOR RELATION:
+$query->orWhereHas('user', function($q) use ($text) {
+    $q->whereRaw('LOWER(name) LIKE ? ', [$text]);
+});
+$query->whereDoesntHave('user'); // выбрать записи, у которых связь user не имеет записей
+
 
 // JSON WHERE:
     ->where('preferences->dining->meal', 'salad')   
@@ -164,11 +178,14 @@ $countUpdated = $builder->where('id', 1)
     ->update(['options->enabled' => true]);
 
 // Increment & Decrement
+// увеличить значение на 1
 $builder->increment('votes'); 
+// увеличить значение на 5
 $builder->increment('votes', 5);
 // обновить дополнительно поле "name"
 $builder->increment('votes', 1, ['name' => 'John']);
  
+// уменьшить значение
 $builder->decrement('votes');
 $builder->decrement('votes', 5);
 
