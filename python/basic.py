@@ -1,3 +1,6 @@
+# Конспект по Python из книг:
+#   "Простой Python. Современный стиль программирования" Билл Любанович
+#   "Изучаем Python" [2020] Эрик Мэтиз
 
 ## ТИПЫ ДАННЫХ ============================
 """ 
@@ -13,11 +16,33 @@
 - Списки (list) — упорядоченные, изменяемые коллекции элементов.
 - Кортежи (tuple) — упорядоченные, неизменяемые коллекции элементов.
 - Множества (set) — неупорядоченные коллекции уникальных элементов.
+- Фиксированное множество (frozenset)
 - Словари (dict) — коллекции пар ключ-значение.
+- Байты (bytes)
+- Массив байтов (bytearray)
 """
 x = type(y)         # верн тип данных
 num = int(x);       # приведение к int
 
+# // - оператор целочисленного деления
+x = 7 // 2          # -> 3
+#  3 ** 4           # 3 в 4-й степени
+
+# продлеваем строки с помощью символа "\":
+sum = 1 + \
+    2 + \
+    3
+
+# к False приравниваются следующие значения:
+#  None;
+#  целое число 0;
+#  число с плавающей точкой 0.0;
+#  пустая строка ('');
+#  пустой список ([]);
+#  пустой кортеж (());
+#  пустой словарь ({});
+#  пустое множество (set()).
+                    
 
 ## СТРОКИ ============================
 
@@ -26,15 +51,28 @@ string_2 = "string 1"
 s1 = string_1.title()       # делает первые буквы каждого слова большими
 s2 = string_1.upper()       #
 s2 = string_1.lower()       #
-
-s3 = f"{s1} {s2}"           # f-строка (с подстановкой переменных). Появились в версии Python 3.6
-# для версии Python менее 3.6 используйте метод "format"
-s3 = "{} {}".format(s1, s2)
-
+string = str(98)            # ->'98' приведение к строке
+string_3 = string_1 + string_2      # конкатенация строк с использованием "+"
+str = 'ываыва' * 4          # строки можно размножать с помощью символа "*"
+# можно извлекать подстроки с помощью [начало:конец]
+str1 = 'sdfxcv sdfsdfsd sdf sdfsdfsd'
+substr1 = str1[2:5]         # ->'fxcv'
+substr2 = str1[-3:]         # ->'fsd' последние 3
+list1 = str1.split(' ');    # разбивает строку в список
 s3 = s3.rstrip()    # удаляет пробелы в конце строки
 s3 = s3.lstrip()    # удаляет пробелы в начале строки
 s3 = s3.strip()     # удаляет пробелы в начале и в конце строки
 
+# Есть еще ф-ии 
+#   join(), replace(), startswith(), endswith(), find(), rfind(), index(), rindex(), capitalize(), 
+#   swapcase() - меняет регистр на противополож.
+#   center(30) - отцентрирует строку в промежутке из 30 пробелов
+#   ljust(30) - выравнивание по левому краю
+#   rjust(30) - вырав-е по правому краю
+
+s3 = f"{s1} {s2}"           # f-строка (с подстановкой переменных). Появились в версии Python 3.6
+# для версии Python менее 3.6 используйте метод "format"
+s3 = "{} {}".format(s1, s2)
 
 if x == True:
     # ...
@@ -54,7 +92,6 @@ for i in x:
     break
 else:           # срабатывает после любых циклов: while, for, и др.
     # ...
-
 
 y = range(5)            # создаст список со значениями от 1 до 5
 y = range(5, 10, 3)     # создаст список со значениями от 5 до 10 c интервалом 3
@@ -185,11 +222,10 @@ def func(h, *args, key):
 
 func(1, 2, 3, key = 10)     # h -> 1; args -> (2, 3); key -> 10 (ключевой параметр после *args - обязательно именованый)
 
-# **args - СЛОВАРЬ аргументов, *argsa - кортеж
+# **args - СЛОВАРЬ аргументов 
+# *argsa - кортеж
 def func(h, **args): 
     print(args)
-
-from pizza import make_pizza        # импорт функции "pizza" из файла "make_pizza.py"
 
 
 ## Области видимости ============================
@@ -204,3 +240,174 @@ print(y)        # y - НЕ сущест в глоб обл видим-ти
 def func_2():
     global x    # чтобы иметь возможность перезаписать глобальную переменную
     x = 10
+
+
+## ИМПОРТ ============================
+
+# Импортирование всего модуля
+import pizza
+
+# Импортирование конкретных функций
+from имя_модуля import функция_0, функция_1, функция_2
+
+# Назначение псевдонима для функции
+from имя_модуля import имя_функции as псевдоним
+
+# Назначение псевдонима для модуля
+import имя_модуля as псевдоним
+
+# Импортирование всех функций модуля (не рекомендуется)
+from pizza import *
+
+
+## Классы ============================
+
+class Car():
+    def __init__(self, model, year):
+        """Инициализирует атрибуты"""
+        self.model = model
+        self.year = year
+        self.odometer_reading = 0   # значение по умолчанию
+
+    def move(self):
+        print(f"{self.model} is now moving.")
+
+
+my_car = Car('audi', 2019)
+my_car.move()
+
+
+## Наследование ======================
+
+class ElectricCar(Car):
+    def __init__(self, model, year):
+        super().__init__(model, year)
+
+
+## Импорт классов ======================
+
+# импорт классов из файла car.py
+from car import Car, ElectricCar
+
+# импорт всего модуля 
+import car
+
+# импорт всех классов из модуля (не рекомендуется)
+from имя_модуля import *
+
+# Использование псевдонимов
+from electric_car import ElectricCar as EC
+
+
+## Стандартная библиотека "random" ========================
+
+from random import randint, choice
+# вернет случайное число от 1 до 6
+randint(1, 6)      
+
+players = ['charles', 'martina', 'michael', 'florence', 'eli']
+# вернет случайной элемент списка или кортежа
+first_up = choice(players)
+
+
+## Файлы ======================
+
+# чтение файла 'pi_digits.txt'
+# open возвращает объект, представляющий файл
+# Конструкция с with закрывает файл после того, как надобность в нем отпадет
+with open('pi_digits.txt') as file_object:
+    contents = file_object.read()       # read() читает содержимое и сохраняет его в строке
+print(contents)
+
+# Файлы можно открывать и закрывать явными вызовами open() и close(); 
+# но если из-за ошибки в программе команда close() останется невыполненной, то файл не будет закрыт
+
+# чтение по строкам (исп-ся for-in)
+with open('pi_digits.txt') as file_object:
+    for line in file_object:
+        print(line)
+
+with open('pi_digits.txt') as file_object:
+    lines = file_object.readlines() # последовательно читает каждую строку из файла и сохраняет ее в списке
+pi_string = ''
+for line in lines:                  # lines вынесли за пределы with
+    pi_string += line.strip()
+
+# запись в файл (перезапись)
+with open('programming.txt', 'w') as file_object:
+    file_object.write("I love programming.")
+
+# запись в файл (добавление в конец)
+with open('programming.txt', 'a') as file_object:
+    file_object.write("I love programming.")
+
+
+## Исключения ===========================
+
+try:
+    print(5/0)
+except ZeroDivisionError:       # ZeroDivisionError - определенное исключение
+    print("You can't divide by zero!")
+else:               # выполнится только при успешном срабатывании кода внтури try
+    print('asdasd')
+
+
+filename = 'alice.txt'
+try:
+    # encoding - если кодировка файла не совпадает с кодир-ой системы
+    with open(filename, encoding='utf-8') as f:  
+        contents = f.read()
+except FileNotFoundError:       # FileNotFoundError - для отсутствия файла
+    print(f"Sorry, the file {filename} does not exist.")
+
+
+try:
+    print(5/0)
+except FileNotFoundError:
+    pass            # pass - спец команда для пропуска ошибок
+else:
+    ...
+
+
+numbers = [2, 3, 5, 7, 11, 13]
+filename = 'numbers.json'
+# сохранение JSON в файл
+import json
+with open(filename, 'w') as f:
+    json.dump(numbers, f)   
+
+
+# чтение JSON из файла
+with open(filename) as f:
+    numbers = json.load(f)
+print(numbers)
+
+
+## Тестирование ===========================
+
+import unittest
+from name_function import get_formatted_name
+class NamesTestCase(unittest.TestCase):
+    """Тесты для 'name_function.py'."""
+
+    def test_first_last_name(self):
+        """Имена вида 'Janis Joplin' работают правильно?"""
+        formatted_name = get_formatted_name('janis', 'joplin')
+        self.assertEqual(formatted_name, 'Janis Joplin')
+
+if __name__ == '__main__':
+    unittest.main()
+# Любой метод, имя которого начинается с test_, будет выполняться автоматически при запуске скрипта
+# Если файл импортируется тестовым сценарием, то переменная __name__ будет содержать
+# значение '__main__', и этот блок выполняться не будет
+
+# assertEqual(a, b)             Проверяет, что a == b
+# assertNotEqual(a, b)          Проверяет, что a != b
+# assertTrue(x)                 Проверяет, что значение x истинно
+# assertFalse(x)                Проверяет, что значение x ложно
+# assertIn(элемент, список)     Проверяет, что элемент входит в список
+# assertNotIn(элемент, список)  Проверяет, что элемент не входит в список
+
+
+
+##  ===========================
