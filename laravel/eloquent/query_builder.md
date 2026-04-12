@@ -8,14 +8,14 @@ $all   = $builder->select($columns = ['*']);
 $first = $builder->first($columns = ['*']);
 
 $byId  = $builder->find($id);
-$value = $builder->value($column);
+$value = $builder->value($column); // верн. значение одного поля
 $pluck = $builder->pluck($column, $key = null);
 
 $bool = $builder->exists();
 $bool = $builder->doesntExist();
 
 $select =   $query->addSelect($column)->get();
-$distinct = $builder->distinct()->get();
+$distinct = $builder->distinct()->get(); // уникальные значения
 
 $users = $builder->count(); 
 $price = $builder->max('price');
@@ -28,6 +28,7 @@ $builder->chunk(100, function ($users) {
     return false;  // остановить обработку дальнейших фрагментов
 });
 
+// Ленивая подгрузка (экономит память)
 // Для обновления используйте lazyById()
 $builder->lazy()->each(function ($user) {/** */});
 
@@ -39,49 +40,50 @@ $builder = $builder
         [$columns, 'like', '1'],
         [$columns, '<>', '1'],
     ])
-    ->where(function ($query) {
-        $query->select('type')
-            ->from('membership')
-            ->whereColumn('membership.user_id', 'users.id')
-            ->limit(1);
-    }, 'Pro')
-    ->orWhere('name', 'John')
-    ->orWhere(function($query) {
-        $query->where('name', 'Abigail')
-                ->where('votes', '>', 50);
-    })
-    ->whereFullText('bio', 'web developer')
-    ->whereNot('name', 'John')
-    ->whereNotNull('updated_at')
-    ->whereNull('last_name')
-    ->whereIn('id', [1, 2, 3])
-    ->whereRaw('price > IF(state = "TX", ?, 100)', [200])
-    ->whereColumn('first_name', 'last_name'
-    )->whereColumn([
+    // где одно поле равно другому в той же таблице
+    ->whereColumn('first_name', 'last_name')
+    ->whereColumn([
         ['first_name', '=', 'last_name'],
         ['updated_at', '>', 'created_at'],
     ])
-    ->whereExists(function ($query) {
-        $query->select(DB::raw(1))
-                ->from('orders')
-                ->whereColumn('orders.user_id', 'users.id');
-    })
+    ->orWhere('name', 'John')
+    ->whereFullText('bio', 'web developer')
+    ->whereIn('id', [1, 2, 3])
 
+    ->whereNot('name', 'John')
+    ->whereNotNull('updated_at')
+    ->whereNull('last_name')
+
+    ->whereBetween('votes', [1, 100])
+    ->whereNotBetween('votes', [1, 100])
+    ->whereBetweenColumns('weight', ['min_weight', 'max_weight'])
+    ->whereNotBetweenColumns('weight', ['min_weight', 'max_weight'])
+
+// по датам:
     ->whereDate('created_at', '2016-12-31')
     ->whereMonth('created_at', '12')
     ->whereDay('created_at', '31')
     ->whereYear('created_at', '2016')
     ->whereTime('created_at', '=', '11:20:45')
 
+// использование SQL внутри билдера:
+    ->whereRaw('price > IF(state = "TX", ?, 100)', [200])
+
+// Подзапросы или группировка условий
+    ->where(function ($query) { /* ... */})
+    ->orWhere(function($query) { /* ... */})
+    ->whereExists(function ($query)  { /* ... */})
+
+// WHERE FOR RELATION:
+$query->orWhereHas('user', function($q) use ($text) {
+    $q->whereRaw('LOWER(name) LIKE ? ', [$text]);
+});
+$query->whereDoesntHave('user'); // выбрать записи, у которых связь user не имеет записей
+
 // JSON WHERE:
     ->where('preferences->dining->meal', 'salad')   
     ->whereJsonContains('options->languages', 'en')
     ->whereJsonLength('options->languages', 0)
-
-    ->whereBetween('votes', [1, 100])
-    ->whereNotBetween('votes', [1, 100])
-    ->whereBetweenColumns('weight', ['min_weight', 'max_weight'])
-    ->whereNotBetweenColumns('weight', ['min_weight', 'max_weight'])
 
 // WHEN (not WHERE)
     ->when($role, function ($query, $role) {
@@ -164,11 +166,14 @@ $countUpdated = $builder->where('id', 1)
     ->update(['options->enabled' => true]);
 
 // Increment & Decrement
+// увеличить значение на 1
 $builder->increment('votes'); 
+// увеличить значение на 5
 $builder->increment('votes', 5);
 // обновить дополнительно поле "name"
 $builder->increment('votes', 1, ['name' => 'John']);
  
+// уменьшить значение
 $builder->decrement('votes');
 $builder->decrement('votes', 5);
 

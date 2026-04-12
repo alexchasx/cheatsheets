@@ -241,3 +241,16 @@ https://timeweb.cloud/tutorials/docker/kak-ustanovit-docker-na-ubuntu-22-04
 ## Настройка прав для Docker
 sudo groupadd docker 
 sudo gpasswd -a $USER docker 
+
+
+## Установка проприетарных драйверов
+
+```bash
+sudo apt install software-properties-gtk
+software-properties-gtk --open-tab=4 
+# выбрать версию драйвера
+
+sudo apt search nvidia-driver
+# пример
+sudo apt install nvidia-driver-550
+```
