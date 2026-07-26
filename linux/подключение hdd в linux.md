@@ -11,5 +11,5 @@ or helper program,or other error
 sudo fdisk -l
 sudo apt install nfs-common
 sudo apt install cifs-utils
-sudo ntfsfix -d /dev/sdb1   # /dev/sdb1 - заменить на своё
+sudo ntfsfix -d /dev/sdc5   # /dev/sdb1 - заменить на своё
 ```
