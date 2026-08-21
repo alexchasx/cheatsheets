@@ -1,5 +1,15 @@
 
 ```bash
+
+# Переустановка дравйверов Nvidia
+sudo apt-get purge '^nvidia.*'
+sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt-get update
+ubuntu-drivers devices  # выбираем почти любой
+sudo apt install nvidia-driver-570
+
+
+
 # https://askubuntu.com/questions/206283/how-can-i-uninstall-a-nvidia-driver-completely
 # Если вы хотите быть уверены, что удалите всё, что связано с Nvidia, вы можете использовать эту команду.
 sudo apt-get remove --purge '^nvidia-.*'
