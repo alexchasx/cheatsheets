@@ -1,6 +1,14 @@
 
 ```bash
 
+# покажет модель, загрузку, температуру и версию драйвера (если драйверы NVIDIA установлены).
+nvidia-smi 
+
+# для Kubuntu
+sudo apt update
+sudo apt install nvidia-driver-550  # или nvidia-driver-latest-meta, если хочешь автообновление
+
+
 # Переустановка дравйверов Nvidia
 sudo apt-get purge '^nvidia.*'
 sudo add-apt-repository ppa:graphics-drivers/ppa

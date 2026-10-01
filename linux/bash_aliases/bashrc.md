@@ -49,6 +49,8 @@ alias d2='docker-compose exec db bash'
 alias d3='docker-compose exec nginx bash'
 alias d4='docker-compose exec redis bash'
 alias cd1='cd ~/_elcom/portal/'
+alias cd2='cd ~/_dev/laravel-orchid-blog'
+alias cd3='cd ~/_dev/testx'
 
 # laravel
 alias pa='php artisan $*'
